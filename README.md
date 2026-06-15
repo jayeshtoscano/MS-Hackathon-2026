@@ -17,3 +17,20 @@ Integrated sandbox testing
 Snapshot/goldmaster testing
 Synthetic consumer testing
 The project can be further scaled for handling alternatives to pact flow and add scalability to choose between vendors for overall SaaS cost savings.
+
+Consumer Agent
+    │
+    ▼
+MCP Server
+(run tests + verify contracts)
+    │
+    ▼
+Provider Agent
+    │
+    ▼
+Gatekeeper Agent
+(Can-I-Deploy Decision)
+    │
+    ▼
+Deployment Agent
+(Azure DevOps / GitHub Actions)
