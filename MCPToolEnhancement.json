@@ -1,0 +1,11 @@
+{
+  "platform": "PactFlow",
+  "consumer": "CustomerPortal",
+  "provider": "AddressBook.API",
+  "consumerVersion": "1.5.0",
+  "providerVersion": "2.1.0",
+  "bidirectionalVerification": "PASSED",
+  "providerVerification": "PASSED",
+  "canIDeploy": true,
+  "decision": "SAFE_TO_DEPLOY"
+}
