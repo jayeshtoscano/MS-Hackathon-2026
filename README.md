@@ -155,3 +155,8 @@ Further enhancements required to gatekeeper AI agent on both consumer and provid
 4) Decision
 5) Timestamp
 6) Region
+
+Microsoft foundry integration notes: 
+Go to your agent definition in the Foundry Portal.Navigate to Builder > Knowledge base.Click Add repository.Select GitHub or Azure DevOps.Sign in, authorize access, and select the specific repository from the dropdown menu.The platform will automatically parse, chunk, vectorize, and index the code into a managed vector store for the agent's semantic search.
+
+Sample repo which Microsoft foundry agent : https://github.com/jayeshtoscano/contract-testing-dotnetcore-example
