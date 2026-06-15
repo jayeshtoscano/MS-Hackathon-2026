@@ -1,0 +1,6 @@
+{
+  "action": "verify_contract",
+  "consumer": "CustomerPortal",
+  "provider": "AddressBook.API",
+  "region": "AMER"
+}
