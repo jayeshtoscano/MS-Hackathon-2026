@@ -1,0 +1,6 @@
+{
+  "region": "AMER",
+  "canAIDeploy": true,
+  "decision": "SAFE_TO_DEPLOY",
+  "reason": "All contracts verified"
+}
