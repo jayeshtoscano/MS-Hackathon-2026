@@ -486,7 +486,7 @@ Final Result:
 
 {
 "decision":"SAFE_TO_DEPLOY",
-"canIDeploy":true
+"canAIDeploy":true
 }
 
 This template is suitable for a multi-region enterprise setup and can be used directly as a reusable `skill.md` for MCP-driven Pact verification, OpenAPI compatibility checks, and A2A consumer-provider agent collaboration.
