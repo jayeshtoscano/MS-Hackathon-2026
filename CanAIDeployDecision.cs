@@ -1,3 +1,5 @@
+
+//This class lets the Gatekeeper act as the single source of truth for deployment decisions instead of merely relaying the PactFlow/Pact Broker result.
 public record CanAIDeployDecision
 {
     public string Region { get; init; } = "";
