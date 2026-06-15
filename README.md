@@ -34,3 +34,85 @@ Gatekeeper Agent
     ▼
 Deployment Agent
 (Azure DevOps / GitHub Actions)
+
+PR Created
+    │
+    ▼
+Consumer Agent
+    │
+    ▼
+run_consumer_tests
+    │
+    ▼
+generate_pacts
+    │
+    ▼
+Provider Agent
+    │
+    ▼
+verify_provider
+    │
+    ▼
+Gatekeeper Agent
+    │
+    ▼
+can_i_deploy
+    │
+    ├── FALSE → Block Deployment
+    │
+    └── TRUE
+            │
+            ▼
+Deployment Agent
+            │
+            ▼
+Azure DevOps Release
+
+This pattern gives you a clean separation:
+
+Consumer AI Agent = generates and validates contracts.
+Provider AI Agent = verifies implementation against contracts.
+Gatekeeper AI Agent = the single authority that reads can_i_deploy.
+Deployment AI Agent = deploys only when the gatekeeper returns SAFE_TO_DEPLOY.
+
+Further scope for this project : Add scalability to switch between pactflow and pact broker.
+
+For scalability in future, remove the hard-coded PactFlow or Pact Broker anywhere in the agents. Instead, we will introduce a Contract Platform Abstraction Layer. Sample code added. To do: refactor and add security layer as per organizational policies. Update policy in skills.md which will ensure microsoft purview, or even rayfin to do prompt to deploy using strict governance and compliance as defined by standard procedures and policies. 
+
+Consumer Agent
+      │
+      ▼
+ContractVerificationAgent
+      │
+      ▼
+IContractPlatform
+      │
+ ┌────┴──────────────┐
+ ▼                   ▼
+PactBrokerAdapter   PactFlowAdapter
+      │                   │
+      ▼                   ▼
+Broker API          PactFlow API
+
+This allows:
+
+Self-hosted Pact Broker today
+PactFlow tomorrow
+Regional brokers later
+Zero changes to AI agents
+
+Recommended Enterprise Extension:
+IContractPlatform
+    ├── PactBrokerAdapter
+    ├── PactFlowAdapter
+    └── RegionalContractAdapter
+
+The RegionalContractAdapter routes automatically:
+AMER → PactFlow
+EMEA → Pact Broker
+APAC → PactFlow
+AUS  → PactFlow
+
+Based on region from the skill input.
+
+This allows gradual migration from Pact Broker to PactFlow region-by-region while keeping the AI Consumer Agent, AI Provider Agent, Gatekeeper Agent, MCP tools, and Deployment Agent unchanged.
