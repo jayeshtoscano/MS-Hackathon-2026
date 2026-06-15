@@ -251,3 +251,6 @@ verify_provider
 can_ai_deploy
 Calls Gatekeeper Agent
 Aggregates result
+
+
+Multi agent configuration (Consumer/provider) : Gate keeper agent , test executing agent, deployment agent. It can be further scaled to add team of test executing agents per region as well as multiple agents for different regions and multiple tenants.
