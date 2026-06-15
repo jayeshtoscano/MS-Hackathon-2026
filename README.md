@@ -116,3 +116,41 @@ AUS  → PactFlow
 Based on region from the skill input.
 
 This allows gradual migration from Pact Broker to PactFlow region-by-region while keeping the AI Consumer Agent, AI Provider Agent, Gatekeeper Agent, MCP tools, and Deployment Agent unchanged.
+
+Consumer Agent
+      │
+      ▼
+MCP Verification Agent
+      │
+      ├─ run_consumer_tests
+      ├─ validate_openapi_schema
+      ├─ compare_openapi_versions
+      ├─ verify_provider
+      └─ can_i_deploy
+      │
+      ▼
+Gatekeeper A2A Agent
+      │
+      ├─ APPROVED
+      │       ▼
+      │   Deployment Agent
+      │
+      └─ REJECTED
+              ▼
+       Consumer Agent
+       Provider Agent
+
+PactFlow supports everything Pact Broker does plus:
+1)Bi-directional contracts
+2)Environment management
+3)Branch support
+4)Webhooks
+5)Deployment records
+  
+Further enhancements required to gatekeeper AI agent on both consumer and provider side to record audit trail for observability using Azure monitor:
+       1) Who requested deployment
+       2) Consumer version
+       3) Provider version
+       4) Decision
+       5) Timestamp
+       6) Region
