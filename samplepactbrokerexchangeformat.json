@@ -1,0 +1,6 @@
+{
+  "platform": "PactBroker",
+  "providerVerification": "PASSED",
+  "canAIDeploy": true,
+  "decision": "SAFE_TO_DEPLOY"
+}
