@@ -96,10 +96,10 @@ Broker API          PactFlow API
 
 This allows:
 
-Self-hosted Pact Broker today
-PactFlow tomorrow
-Regional brokers later
-Zero changes to AI agents
+> Self-hosted Pact Broker today
+> PactFlow tomorrow
+> Regional brokers later
+> Zero changes to AI agents
 
 Recommended Enterprise Extension:
 IContractPlatform
