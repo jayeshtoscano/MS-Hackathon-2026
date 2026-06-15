@@ -235,3 +235,19 @@ Contract insights are fragmented
 Also , Approval workflows (human-in-the-loop A2A)
 
 Copilot connects to MCP + A2A using Copilot Studio or use Graph Connectors.
+
+Example end-to-end Copilot A2A flow
+
+User (Human team member from Provider or Consumer) in MS Teams:
+
+“Can we deploy CustomerPortal today?”
+
+Copilot does following:
+Calls Consumer Agent
+Calls Provider Agent
+Triggers MCP tools:
+run_consumer_tests
+verify_provider
+can_ai_deploy
+Calls Gatekeeper Agent
+Aggregates result
