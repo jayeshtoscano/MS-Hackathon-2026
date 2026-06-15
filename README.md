@@ -97,10 +97,10 @@ PactBrokerAdapter PactFlowAdapter
 Broker API PactFlow API
 
 This allows:
- -> Self-hosted Pact Broker today 
- -> PactFlow tomorrow
- -> Regional brokers later
- -> Zero changes to AI agents
+-> Self-hosted Pact Broker today
+-> PactFlow tomorrow
+-> Regional brokers later
+-> Zero changes to AI agents
 
 Recommended Enterprise Extension:
 IContractPlatform
@@ -142,28 +142,30 @@ Consumer Agent
 Provider Agent
 
 PactFlow supports everything Pact Broker does plus:
-1) Bi-directional contracts
-2) Environment management
-3) Branch support
-4) Webhooks
-5) Deployment records
+
+1. Bi-directional contracts
+2. Environment management
+3. Branch support
+4. Webhooks
+5. Deployment records
 
 Further enhancements required to gatekeeper AI agent on both consumer and provider side to record audit trail for observability using Azure monitor:
-1) Who requested deployment
-2) Consumer version
-3) Provider version
-4) Decision
-5) Timestamp
-6) Region
 
-Microsoft foundry integration notes: 
+1. Who requested deployment
+2. Consumer version
+3. Provider version
+4. Decision
+5. Timestamp
+6. Region
+
+Microsoft foundry integration notes:
 Go to your agent definition in the Foundry Portal.Navigate to Builder > Knowledge base.Click Add repository.Select GitHub or Azure DevOps.Sign in, authorize access, and select the specific repository from the dropdown menu.The platform will automatically parse, chunk, vectorize, and index the code into a managed vector store for the agent's semantic search.
 
 Sample repo which Microsoft foundry agent : https://github.com/jayeshtoscano/contract-testing-dotnetcore-example
 
 Microsoft 365 Copilot can act as the collaboration + orchestration layer that sits above your MCP + A2A + Pact system. It doesn’t replace your agents—it makes them discoverable, conversational, and workflow-driven inside the Microsoft 365 ecosystem.
 
-Role description : 
+Role description :
 MCP is execution layer
 A2A agents are decision/execution layer
 Microsoft 365 Copilot is nothing but human + enterprise collaboration layer that drives and supervises A2A.
@@ -173,56 +175,56 @@ Microsoft 365 Copilot's role : Consumer Agent → MCP → Provider Agent → Gat
 Copilot becomes the natural language control plane.
 
 User (Teams / Outlook / Word)
-        ↓
+↓
 Microsoft 365 Copilot
-        ↓
+↓
 Orchestrates A2A requests
-        ↓
+↓
 Consumer Agent ↔ Provider Agent
-        ↓
+↓
 MCP (tests + contracts)
-        ↓
+↓
 Gatekeeper decision
-        ↓
+↓
 Back to Copilot (explanation + approval summary)
 
-
-Key roles Copilot plays in A2A is 
+Key roles Copilot plays in A2A is
 a) Natural language trigger for A2A workflows. i.e. Instead of calling MCP manually, Run contract validation for AddressBook API.
 b) Cross-team communication bridge (Consumer ↔ Provider)
 
-           Without Copilot:
-           Consumer team opens Jira ticket
-           Provider team checks logs
-           Slack/Email back-and-forth
-           
-           With Copilot:
-           
-           In Teams chat: Does AddressBook API change break CustomerPortal?
-           Copilot:
-           > Calls Consumer Agent
-           > Calls Provider Agent
-           > Runs MCP verification
-           > Returns consolidated answer
-           
-           Example response:
-           Breaking change detected
-           Field name → fullName
-           2 consumers impacted
-           Deployment blocked
+  Without Copilot:
+   Consumer team opens Jira ticket
+   Provider team checks logs
+   Slack/Email back-and-forth
+
+   With Copilot:
+
+   In Teams chat: Does AddressBook API change break CustomerPortal?
+    Copilot:
+    > Calls Consumer Agent
+    > Calls Provider Agent
+    > Runs MCP verification
+    > Returns consolidated answer
+
+
+Example response:
+Breaking change detected
+Field name → fullName
+2 consumers impacted
+Deployment blocked
 
 C) Automated A2A coordination (no manual routing)
 
 Copilot can act as a router:
 
-Trigger	Copilot Action
-PR created	call Consumer Agent
-API changed	call Provider Agent
-OpenAPI updated	run compatibility MCP tool
-Deployment requested	invoke Gatekeeper Agent
+Trigger Copilot Action
+PR created call Consumer Agent
+API changed call Provider Agent
+OpenAPI updated run compatibility MCP tool
+Deployment requested invoke Gatekeeper Agent
 
 D) “Explainability layer” for Gatekeeper decisions
-   Instead of raw JSON: {  "canAIDeploy": false   } , gives details of issue like for example Provider removed required field name, Breaks CustomerPortal contract v1.5, 3 failing pact interactions detected, etc.
+Instead of raw JSON: { "canAIDeploy": false } , gives details of issue like for example Provider removed required field name, Breaks CustomerPortal contract v1.5, 3 failing pact interactions detected, etc.
 
 Why Copilot is important in your architecture ?
 Without Copilot:
@@ -231,6 +233,5 @@ Developers must use APIs/CLI
 Contract insights are fragmented
 
 Also , Approval workflows (human-in-the-loop A2A)
-
 
 Copilot connects to MCP + A2A using Copilot Studio or use Graph Connectors.
