@@ -1,61 +1,60 @@
-using System.Net.Http.Json;
-
-namespace ContractAgents;
-
-public class GatekeeperA2AAgent
+public sealed class GatekeeperA2AAgent
 {
     private readonly HttpClient _http;
+    private readonly IContractPlatform _contractPlatform;
+    private readonly ILogger<GatekeeperA2AAgent> _logger;
 
-    public GatekeeperA2AAgent(HttpClient http)
+    public GatekeeperA2AAgent(
+        HttpClient http,
+        IContractPlatform contractPlatform,
+        ILogger<GatekeeperA2AAgent> logger)
     {
         _http = http;
+        _contractPlatform = contractPlatform;
+        _logger = logger;
     }
 
     public async Task<CanDeployDecision> EvaluateAsync(
-        string consumer,
-        string provider,
         string consumerVersion,
-        string providerVersion)
+        string providerVersion,
+        CancellationToken cancellationToken = default)
     {
-        var response =
-            await _http.PostAsJsonAsync(
-                "mcp/tools/can_i_deploy",
-                new
-                {
-                    consumerVersion,
-                    providerVersion
-                });
+        var decision =
+            await _contractPlatform.CanIDeployAsync(
+                consumerVersion,
+                providerVersion);
 
-        response.EnsureSuccessStatusCode();
+        _logger.LogInformation(
+            "Deployment decision {Decision} for Provider {ProviderVersion}",
+            decision.Decision,
+            providerVersion);
 
-        var result =
-            await response.Content
-                .ReadFromJsonAsync<CanDeployDecision>();
-
-        return result!;
+        return decision;
     }
 
     public async Task NotifyConsumerAgent(
-        CanDeployDecision decision)
+        CanDeployDecision decision,
+        CancellationToken cancellationToken = default)
     {
-        await _http.PostAsJsonAsync(
-            "a2a/consumer-agent",
-            decision);
+        var response =
+            await _http.PostAsJsonAsync(
+                "a2a/consumer-agent",
+                decision,
+                cancellationToken);
+
+        response.EnsureSuccessStatusCode();
     }
 
     public async Task NotifyProviderAgent(
-        CanDeployDecision decision)
+        CanDeployDecision decision,
+        CancellationToken cancellationToken = default)
     {
-        await _http.PostAsJsonAsync(
-            "a2a/provider-agent",
-            decision);
-    }
-}
+        var response =
+            await _http.PostAsJsonAsync(
+                "a2a/provider-agent",
+                decision,
+                cancellationToken);
 
-public record CanDeployDecision
-{
-    public string Region { get; init; } = "";
-    public bool CanIDeploy { get; init; }
-    public string Decision { get; init; } = "";
-    public string Reason { get; init; } = "";
+        response.EnsureSuccessStatusCode();
+    }
 }
