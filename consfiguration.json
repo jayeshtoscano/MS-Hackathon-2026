@@ -1,0 +1,15 @@
+{
+  "ContractPlatform": {
+    "Type": "PactFlow",
+
+    "PactBroker": {
+      "BaseUrl": "https://broker.company.com",
+      "Token": ""
+    },
+
+    "PactFlow": {
+      "BaseUrl": "https://company.pactflow.io",
+      "Token": "xxxx"
+    }
+  }
+}
